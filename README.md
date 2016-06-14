@@ -13,16 +13,16 @@
      - WSO2 Enterprise Service Bus 4.9.0 - `wso2esb-4.9.0.zip`
   3. Add these 4 binary packs to the `packs` directory.
   
-**Data Services Server (DSS)**
+**WSO2 Data Services Server (DSS)**
 
   1. Start the DSS container
-     - `docker-compose up -d dss` - will create the DSS container image and boot it up.
+     - `docker-compose up -d dss` - will create the DSS and MySQL container images and boot them up.
      - `docker ps` - lists the running container information. 
-     - Observe the NAME value ( dss.dbtoapi.com ) of the container.
+     - Observe the NAME values ( dss.dbtoapi.com , dbs.dbtoapi.com ) of the containers.
   2. Upload Artifacts
      - Tail DSS logs, and observe.
          - Run `docker exec -it dss.dbtoapi.com tailf wso2/wso2dss-3.5.0/repository/logs/wso2carbon.log`
-     - Open the admin management console with [https://docker.machine:9445/carbon](https://docker.machine:9445/carbon).
+     - Open the admin management console with [https://docker.machine:9445/carbon](https://docker.machine:9445/carbon) (user=admin, password=admin).
      - Go to `Manage > Carbon Applications > Add`.
      - Upload `artifacts/data-to-api-composite-project_1.0.0.car`.
      - Observe DSS logs and verify that the artifacts were deployed successfully.
@@ -33,7 +33,7 @@
      - StudentInformationDataService
          - Try the operations `getStudents`: and `getStudentById` with `02341334` as `studentId`.
          
-**Enterprise Service Bus (ESB)**
+**WSO2 Enterprise Service Bus (ESB)**
 
   1. Start the ESB container
      - `docker-compose up -d esb` - will create the ESB container image and boot it up.
@@ -42,7 +42,7 @@
   2. Upload Artifacts
      - Tail ESB logs, and observe.
          - Run `docker exec -it esb.dbtoapi.com tailf wso2/wso2esb-4.9.0/repository/logs/wso2carbon.log`
-     - Open the admin management console with [https://docker.machine:9444/carbon](https://docker.machine:9444/carbon).
+     - Open the admin management console with [https://docker.machine:9444/carbon](https://docker.machine:9444/carbon) (user=admin, password=admin).
      - Go to `Manage > Carbon Applications > Add`.
      - Upload `artifacts/data-to-api-composite-project_1.0.0.car`.
      - Observe ESB logs and verify that the artifacts were deployed successfully.
@@ -55,3 +55,19 @@
   7. Add header `Accept` with value `application/xml`
   8. Invoke and observe the response and ESB logs
 
+**WSO2 API Manager (API-M)**
+
+  1. Start the API-M container
+     - `docker-compose up -d apim` - will create the API-M and WSO2 Data Analytics Server(DAS) container images and boot them up.
+     - `docker ps` - lists the running containers information. 
+     - Observe the NAME values ( api.dbtoapi.com, das.dbtoapi.com ) of this container.
+  2. Open API-M user interfaces (user=admin, password=admin).
+     - API-M Admin Console [https://docker.machine:9443/carbon](https://docker.machine:9443/carbon)
+     - API-M Publisher [https://docker.machine:9443/publisher](https://docker.machine:9443/publisher)
+     - API-M Store [https://docker.machine:9443/store](https://docker.machine:9443/store)
+  2. Publish the API which was created on the ESB earlier.
+     - Create an API on API-M publisher.
+     - Add resource `/enrollments` with GET, POST and PUT methods.
+     - Add resource `/enrollments/{subjectCode}` with GET and DELETE methods.
+     - Provide `http://docker.machine:8281/registrations` as the production URL
+  4. Subscribe to the published API via the API-M Store
