@@ -1,5 +1,13 @@
 # data-to-api#
 
+**Demonstration Scenario**
+
+![alt text](https://github.com/knightbeat/data-to-api/blob/master/artifacts/data-to-api-scenario.png "Demostration Scenario")
+
+**Demostration Setup **
+
+![alt text](https://github.com/knightbeat/data-to-api/blob/master/artifacts/data-to-api-topology-and-ports-mapping.png "Container Topology and Ports Mapping")
+
 **Environment Setup**
 	
   1. Add a host entry to the host machine
@@ -86,4 +94,3 @@
   1. Run `docker stop $(docker ps -a -q)` to stop all containers.
   2. Run `docker-machine stop` to stop the machine.
   
-![alt text](https://github.com/knightbeat/data-to-api/blob/master/artifacts/data-to-api-topology-and-ports-mapping.png "Container Topology and Ports Mapping")
