@@ -80,3 +80,8 @@
   5. Try the API with Swagger based API Console on the API-M Store UI.
   6. Or, use a REST client like [POSTMAN](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en)
      - i.e. `http://docker.machine:8280/registrarapi/1.0.0/enrollments/5242GW`
+
+**When You are done...**
+
+  1. Run `docker stop $(docker ps -a -q)` to stop all containers.
+  2. Run `docker-machine stop` to stop the machine.
