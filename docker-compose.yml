@@ -11,6 +11,8 @@ services:
         MYSQL_ROOT_PASSWORD: root
   dss:
     container_name: dss.dbtoapi.com
+    depends_on: 
+      - dbs
     build: 
         context: .
         dockerfile: dss/Dockerfile
