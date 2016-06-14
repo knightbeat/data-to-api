@@ -13,23 +13,45 @@
      - WSO2 Enterprise Service Bus 4.9.0 - `wso2esb-4.9.0.zip`
   3. Add these 4 binary packs to the `packs` directory.
   
-  **Data Services Server (DSS)**
+**Data Services Server (DSS)**
 
-  1. Start the service container
+  1. Start the DSS container
      - `docker-compose up -d dss` - will create the DSS container image and boot it up.
      - `docker ps` - lists the running container information. 
      - Observe the NAME value ( dss.dbtoapi.com ) of the container.
   2. Upload Artifacts
      - Tail DSS logs, and observe.
-         - Run `docker exec -it esb.example.com tailf wso2/wso2dss-3.5.0/repository/logs/wso2carbon.log`
+         - Run `docker exec -it dss.dbtoapi.com tailf wso2/wso2dss-3.5.0/repository/logs/wso2carbon.log`
      - Open the admin management console with [https://docker.machine:9445/carbon](https://docker.machine:9445/carbon).
      - Go to `Manage > Carbon Applications > Add`.
      - Upload `artifacts/data-to-api-composite-project_1.0.0.car`.
-     - Observe DSS logs and verify the artifacts were deployed successfully.
-  2. Open SOAPUI, and load project  `artifacts/data-to-api-soapui-project-soapui-project.xml`.
-  3. Observe operations of the two Data Services.
+     - Observe DSS logs and verify that the artifacts were deployed successfully.
+  3. Open SOAPUI, and load project  `artifacts/data-to-api-soapui-project-soapui-project.xml`.
+  4. Observe operations of the two Data Services.
      - CourseInformationDataService
          - Try the operations `getEnrollments`: and `getEnrollmentsBySubject` with `5242GW` as `subjectCode`.
      - StudentInformationDataService
          - Try the operations `getStudents`: and `getStudentById` with `02341334` as `studentId`.
-     
+         
+**Enterprise Service Bus (ESB)**
+
+  1. Start the ESB container
+     - `docker-compose up -d esb` - will create the ESB container image and boot it up.
+     - `docker ps` - lists the running containers information. 
+     - Observe the NAME value ( esb.dbtoapi.com ) of this container.
+  2. Upload Artifacts
+     - Tail ESB logs, and observe.
+         - Run `docker exec -it esb.dbtoapi.com tailf wso2/wso2esb-4.9.0/repository/logs/wso2carbon.log`
+     - Open the admin management console with [https://docker.machine:9444/carbon](https://docker.machine:9444/carbon).
+     - Go to `Manage > Carbon Applications > Add`.
+     - Upload `artifacts/data-to-api-composite-project_1.0.0.car`.
+     - Observe ESB logs and verify that the artifacts were deployed successfully.
+  3. Start a REST client like [POSTMAN](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en)
+  3. Add `http://docker.machine:8281/registrations/enrollments/<an existing subject code>`
+     - i.e. `http://docker.machine:8281/registrations/enrollments/5242GW`
+  4. Invoke and observe the response
+  5. Add header `Accept` with value `application/json`
+  6. Invoke and observe the response and ESB logs
+  7. Add header `Accept` with value `application/xml`
+  8. Invoke and observe the response and ESB logs
+
