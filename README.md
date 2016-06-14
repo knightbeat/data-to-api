@@ -85,3 +85,5 @@
 
   1. Run `docker stop $(docker ps -a -q)` to stop all containers.
   2. Run `docker-machine stop` to stop the machine.
+  
+![alt text](https://github.com/knightbeat/data-to-api/blob/master/artifacts/data-to-api-topology-and-ports-mapping.svg "Container Topology and Ports Mapping")
