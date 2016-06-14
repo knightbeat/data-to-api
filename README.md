@@ -65,9 +65,15 @@
      - API-M Admin Console [https://docker.machine:9443/carbon](https://docker.machine:9443/carbon)
      - API-M Publisher [https://docker.machine:9443/publisher](https://docker.machine:9443/publisher)
      - API-M Store [https://docker.machine:9443/store](https://docker.machine:9443/store)
-  2. Publish the API which was created on the ESB earlier.
+  3. Publish the API which was created on the ESB earlier.
      - Create an API on API-M publisher.
      - Add resource `/enrollments` with GET, POST and PUT methods.
      - Add resource `/enrollments/{subjectCode}` with GET and DELETE methods.
-     - Provide `http://docker.machine:8281/registrations` as the production URL
+     - Provide `http://esb.dbtoapi.com:8280/registrations` as the production URL
+         - In this case, communication happens directly between the API-M and ESB docker containers.
+         - It does not happen accross the host machine.
+         - Therefore, instead of using `docker.machine` as the hostname to contact the ESB,
+         - it is neccessary to use the ESB container name `esb.dbtoapi.com` as host name.
+         - When the host machine doesn't involve in communication, the docker-compose port mappings do not apply.
+         - Therefore, instead of using port '8281', directly use port '8280' (ignoring the port mapping).
   4. Subscribe to the published API via the API-M Store
