@@ -1,0 +1,52 @@
+version: '2'
+services:
+  dbs:
+    container_name: dbs.dbtoapi.com
+    build: 
+        context: .
+        dockerfile: dbs/Dockerfile
+    ports:
+     - "3306:3306"
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+  dss:
+    container_name: dss.dbtoapi.com
+    build: 
+        context: .
+        dockerfile: dss/Dockerfile
+    ports:
+     - "9765:9763"
+     - "9445:9443"
+  esb:
+    container_name: esb.dbtoapi.com
+    build:
+      context: .
+      dockerfile: esb/Dockerfile
+    ports:
+      - "9764:9763"
+      - "9444:9443"
+      - "8281:8280"
+      - "8244:8243"
+  apim:
+    container_name: api.dbtoapi.com
+    depends_on: 
+      - dbs
+      - das
+    build:
+      context: .
+      dockerfile: apim/Dockerfile
+    ports:
+      - "9763:9763"
+      - "9443:9443"
+      - "8280:8280"
+      - "8243:8243"
+  das:
+    container_name: das.dbtoapi.com
+    depends_on: 
+      - dbs
+    build:
+      context: .
+      dockerfile: das/Dockerfile
+    ports:
+      - "9767:9763"
+      - "9447:9443"
