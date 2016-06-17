@@ -8,8 +8,8 @@
 **Environment Setup**
 	
   1. Add a host entry to the host machine
-     - `docker machine start` - will start the docker machine if you are using `windows` or `OSx`.
-     - `docker machine ip` - will display the IP address of the docker machine.
+     - `docker-machine start` - will start the docker machine if you are using `windows` or `OSx`.
+     - `docker-machine ip` - will display the IP address of the docker machine.
      - Open the `hosts` file of the host machine, and add an entry as `<ip-address> docker.machine`.
   2. Download WSO2 product binary packages
      - WSO2 API Manager 1.10.0 - `wso2am-1.10.0.zip`
