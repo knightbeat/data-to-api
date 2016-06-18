@@ -90,6 +90,9 @@
   5. Try the API with Swagger based API Console on the API-M Store UI.
   6. Or, use a REST client like [POSTMAN](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en)
      - i.e. `http://docker.machine:8280/registrarapi/1.0.0/enrollments/5242GW`
+     
+**Additionally note**
+  You can also expose the Data Services endpoints (both SOAP and REST) directly through the API Manager, without making a route through the ESB installation.
 
 **When You are done...**
 
