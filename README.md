@@ -25,7 +25,8 @@
 **WSO2 Data Services Server (DSS)**
 
   1. Start the DSS container
-     - `docker-compose up -d dss` - will create the DSS and MySQL container images and boot them up.
+     - `docker-compose up -d dbs` - will create the container image and boot it up.
+     - `docker-compose up -d dss` - will create the DSS container image and boot it up.
      - `docker ps` - lists the running container information. 
      - Observe the NAME values ( dss.dbtoapi.com , dbs.dbtoapi.com ) of the containers.
   2. Upload Artifacts
